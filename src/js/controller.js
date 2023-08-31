@@ -1,4 +1,7 @@
 import icons from 'url:../img/icons.svg';
+//The imports  below polyfill our code. Polyfill is a piece of code (usually JavaScript on the Web) used to provide modern functionality on older browsers that do not natively support it.
+import 'core-js/stable';
+import 'regenerator-runtime/runtime';
 
 const recipeContainer = document.querySelector('.recipe');
 
@@ -25,11 +28,17 @@ const renderSpinner = function (parentEl) {
 
 const showRecipe = async function () {
   try {
+    const id = window.location.hash.slice(1);
+    console.log(id);
+
+    if (!id) return;
+
     //1) -------------Loading recepies------------
     renderSpinner(recipeContainer);
+
     //fetch will return a promise. since we are in an async function we can then await for that promise
     const res = await fetch(
-      'https://forkify-api.herokuapp.com/api/v2/recipes/5ed6604591c37cdc054bca5d'
+      `https://forkify-api.herokuapp.com/api/v2/recipes/${id}`
     );
 
     //convert the result to json. json is a method available on all the response objects
@@ -159,3 +168,6 @@ const showRecipe = async function () {
 };
 
 showRecipe();
+['hashchange', 'load'].forEach(ev => addEventListener(ev, showRecipe));
+//window.addEventListener('hashchange', showRecipe);
+//window.addEventListener('load', showRecipe);
