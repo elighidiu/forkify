@@ -1,4 +1,6 @@
-# Forkify App
+# Forkify App 
+
+![Alt text](src/img/screencapture-forkify-v2-netlify-app-2023-09-28-13_07_16.png)
 
 ## Description
 
